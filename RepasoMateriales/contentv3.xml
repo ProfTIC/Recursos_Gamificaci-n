@@ -577,7 +577,7 @@ click on the Hide/Show Word button below.&lt;/p&gt;&lt;p&gt;More than one possib
      <string role="key" value="exe.engine.node.Node.persistenceVersion"></string>
      <int value="2"></int>
      <string role="key" value="exportType"></string>
-     <string value="singlepage"></string>
+     <string value="website"></string>
      <string role="key" value="last_full_node_path"></string>
      <string value="exe-node:Repaso"></string>
      <string role="key" value="parent"></string>
