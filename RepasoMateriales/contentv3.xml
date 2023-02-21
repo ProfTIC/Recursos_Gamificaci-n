@@ -1285,7 +1285,7 @@ click on the 'Hide/Show' button below.&lt;/p&gt;"></unicode>
      <string role="key" value="exe.engine.node.Node.persistenceVersion"></string>
      <int value="2"></int>
      <string role="key" value="exportType"></string>
-     <string value="singlepage"></string>
+     <string value="website"></string>
      <string role="key" value="last_full_node_path"></string>
      <string value="exe-node:Repaso"></string>
      <string role="key" value="parent"></string>
