@@ -69,7 +69,7 @@
   <string role="key" value="_intendedEndUserRoleType"></string>
   <unicode value=""></unicode>
   <string role="key" value="_isChanged"></string>
-  <bool value="1"></bool>
+  <bool value="0"></bool>
   <string role="key" value="_isTemplate"></string>
   <bool value="0"></bool>
   <string role="key" value="_lang"></string>
@@ -624,8 +624,8 @@ click on the Hide/Show Word button below.&lt;/p&gt;&lt;p&gt;More than one possib
          <dictionary>
           <string role="key" value="_encodedContent"></string>
           <unicode value="&lt;ul&gt;
-&lt;li&gt;Baquelita: termoestable&lt;/li&gt;
-&lt;li&gt;Polietileno: termoplástico&lt;/li&gt;
+&lt;li&gt;Baquelita:  &lt;u&gt;termoestable&lt;/u&gt; &lt;/li&gt;
+&lt;li&gt;Polietileno:  &lt;u&gt;termoplástico&lt;/u&gt; &lt;/li&gt;
 &lt;li&gt;Caucho:  &lt;u&gt;elastómero&lt;/u&gt; &lt;/li&gt;
 &lt;li&gt;Látex:  &lt;u&gt;elastómero&lt;/u&gt; &lt;/li&gt;
 &lt;li&gt;PVC:  &lt;u&gt;termoplástico&lt;/u&gt; &lt;/li&gt;
@@ -651,8 +651,8 @@ click on the 'Hide/Show' button below.&lt;/p&gt;"></unicode>
           <dictionary></dictionary>
           <string role="key" value="content_w_resourcePaths"></string>
           <unicode content="true" value="&lt;ul&gt;
-&lt;li&gt;Baquelita: termoestable&lt;/li&gt;
-&lt;li&gt;Polietileno: termoplástico&lt;/li&gt;
+&lt;li&gt;Baquelita: &lt;u&gt;termoestable&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;Polietileno: &lt;u&gt;termoplástico&lt;/u&gt;&lt;/li&gt;
 &lt;li&gt;Caucho: &lt;u&gt;elastómero&lt;/u&gt;&lt;/li&gt;
 &lt;li&gt;Látex: &lt;u&gt;elastómero&lt;/u&gt;&lt;/li&gt;
 &lt;li&gt;PVC: &lt;u&gt;termoplástico&lt;/u&gt;&lt;/li&gt;
@@ -686,8 +686,16 @@ click on the 'Hide/Show' button below.&lt;/p&gt;"></unicode>
           <list>
            <tuple>
             <unicode value="&lt;ul&gt;
-&lt;li&gt;Baquelita: termoestable&lt;/li&gt;
-&lt;li&gt;Polietileno: termoplástico&lt;/li&gt;
+&lt;li&gt;Baquelita: "></unicode>
+            <unicode value="termoestable"></unicode>
+           </tuple>
+           <tuple>
+            <unicode value="&lt;/li&gt;
+&lt;li&gt;Polietileno: "></unicode>
+            <unicode value="termoplástico"></unicode>
+           </tuple>
+           <tuple>
+            <unicode value="&lt;/li&gt;
 &lt;li&gt;Caucho: "></unicode>
             <unicode value="elastómero"></unicode>
            </tuple>
