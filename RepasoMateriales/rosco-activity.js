@@ -164,7 +164,6 @@ var $eXeRosco = {
 		if ($eXeRosco.hasLATEX && typeof (MathJax) == "undefined") {
 			$eXeRosco.loadMathJax();
 		}
-
 	},
 
 	isJsonString: function (str) {
@@ -184,13 +183,12 @@ var $eXeRosco = {
 			json = $eXeRosco.Decrypt(json);
 		}
 		var mOptions = $eXeRosco.isJsonString(json),
-			hasLatex = /(?:\\\(|\\\[|\\begin\{.*?})/.test(json);
+			hasLatex = /(?:\$|\\\(|\\\[|\\begin\{.*?})/.test(json);
 		if (hasLatex) {
 			$eXeRosco.hasLATEX = true;
 		}
 		mOptions.playerAudio = "";
 		mOptions.gameOver = false;
-		mOptions.modeBoard = typeof mOptions.modeBoard == "undefined" ? false : mOptions.modeBoard;
 		imgsLink.each(function (index) {
 			mOptions.wordsGame[index].url = $(this).attr('href');
 			if (mOptions.wordsGame[index].url.length < 4) {
@@ -295,6 +293,16 @@ var $eXeRosco = {
 							</a>\
 						</div>\
 					</div>\
+					<div class="rosco-CodeAccessDiv" id="roscoCodeAccessDiv-' + instance + '">\
+                		<div class="rosco-MessageCodeAccessE" id="roscoMesajeAccesCodeE-' + instance + '"></div>\
+                		<div class="rosco-DataCodeAccessE">\
+                    		<label for="roscoEdCodeAccess-' + instance + '" class="sr-av">' + msgs.msgCodeAccess + ':</label><input type="text" class="rosco-CodeAccessE" id="roscoEdCodeAccess-' + instance + '" placeholder="' + msgs.msgCodeAccess + '">\
+                    		<a href="#" id="roscoCodeAccessButton-' + instance + '" title="' + msgs.msgReply + '">\
+                    		<strong class="sr-av">' + msgs.msgReply + '</strong>\
+                    		<div class="exeQuextIcons-Submit"></div>\
+							</a>\
+						</div>\
+					</div>\
 					<div class="rosco-DivInstructions" id="roscoDivInstructions-' + instance + '">' + msgs.msgWrote + '</div>\
 				</div>\
 				<div id="roscoGame-' + instance + '"class="rosco-Game">\
@@ -302,35 +310,9 @@ var $eXeRosco = {
 						Your browser does not support the HTML5 canvas tag\
 					</canvas>\
 				</div>\
-				<div class="rosco-Cubierta" id="roscoCubierta-' + instance + '" style="display:none">\
-					<div class="rosco-CodeAccessDiv" id="roscoCodeAccessDiv-' + instance + '">\
-						<div class="rosco-MessageCodeAccessE" id="roscoMesajeAccesCodeE-' + instance + '"></div>\
-						<div class="rosco-DataCodeAccessE">\
-							<label for="roscoEdCodeAccess-' + instance + '" class="sr-av">' + msgs.msgCodeAccess + ':</label><input type="text" class="rosco-CodeAccessE" id="roscoEdCodeAccess-' + instance + '" placeholder="' + msgs.msgCodeAccess + '">\
-							<a href="#" id="roscoCodeAccessButton-' + instance + '" title="' + msgs.msgReply + '">\
-							<strong class="sr-av">' + msgs.msgReply + '</strong>\
-							<div class="exeQuextIcons-Submit"></div>\
-							</a>\
-						</div>\
-					</div>\
-                </div>\
-            </div>\
-			</div>\
-			<div class="rosco-DivModeBoard" id="roscoDivModeBoard-' + instance + '">\
-				<a href="#" class="rosco-ModeBoard" id="roscoModeBoardOK-' + instance + '" title="">' + msgs.msgCorrect + '</a>\
-				<a href="#" class="rosco-ModeBoard" id="roscoModeBoardMoveOn-' + instance + '" title="">' + msgs.msgMoveOne + '</a>\
-				<a href="#" class="rosco-ModeBoard" id="roscoModeBoardKO-' + instance + '" title="">' + msgs.msgIncorrect + '</a>\
-			</div>\
-			' + this.addButtonScore(instance) +
+			</div>' + this.addButtonScore(instance) +
 			'</div>';
 		return html
-	},
-	showCubiertaOptions(mode, instance) {
-		if (mode === false) {
-			$('#roscoCubierta-' + instance).fadeOut();
-			return;
-		}
-		$('#roscoCubierta-' + instance).fadeIn();
 	},
 	changeTextInit: function (big, message, instance) {
 		var html = message;
@@ -432,7 +414,6 @@ var $eXeRosco = {
 			$('#roscoCodeAccessDiv-' + instance).show();
 			$('#roscoStartGame-' + instance).hide();
 			$('#roscoDivInstructions-' + instance).hide();
-			$eXeRosco.showCubiertaOptions(true, instance)
 			//$('#roscoEdCodeAccess-' + instance).focus();
 		}
 		$('#roscoCodeAccessButton-' + instance).on('click', function (e) {
@@ -440,7 +421,7 @@ var $eXeRosco = {
 			var keyIntroduced = $.trim($('#roscoEdCodeAccess-' + instance).val()).toUpperCase(),
 				correctKey = $.trim(mOptions.itinerary.codeAccess).toUpperCase();
 			if (keyIntroduced == correctKey) {
-				$eXeRosco.showCubiertaOptions(false, instance);
+				$('#roscoCodeAccessDiv-' + instance).hide();
 				$eXeRosco.startGame(instance);
 			} else {
 				$('#roscoMesajeAccesCodeE-' + instance).fadeOut(300).fadeIn(200).fadeOut(300).fadeIn(200);
@@ -583,20 +564,6 @@ var $eXeRosco = {
 			var element = document.getElementById('roscoMainContainer-' + instance);
 			$eXeRosco.toggleFullscreen(element, instance);
 		});
-		$('#roscoModeBoardOK-' + instance).on('click', function (e) {
-			e.preventDefault();
-			$eXeRosco.answerQuetionBoard(true, instance)
-
-		});
-		$('#roscoModeBoardKO-' + instance).on('click', function (e) {
-			e.preventDefault();
-			$eXeRosco.answerQuetionBoard(false, instance)
-
-		});
-		$('#roscoModeBoardMoveOn-' + instance).on('click', function (e) {
-			e.preventDefault();
-			$eXeRosco.passWord(instance);
-		});
 
 
 	},
@@ -697,7 +664,6 @@ var $eXeRosco = {
 			msgs = mOptions.msgs;
 		clearInterval(mOptions.counterClock);
 		$eXeRosco.uptateTime(mOptions.counter, instance);
-		$('#roscoDivModeBoard-' + instance).hide();
 
 		var msg = msgs.msgYouHas.replace('%1', mOptions.hits);
 		msg = msg.replace('%2', mOptions.errors)
@@ -789,12 +755,8 @@ var $eXeRosco = {
 		if (mWord.audio.trim().length > 4) {
 			$eXeRosco.playSound(mWord.audio.trim(), instance);
 		}
-		if (mOptions.modeBoard) {
-			$('#roscoDivModeBoard-' + instance).css('display', 'flex');
-			$('#roscoDivModeBoard-' + instance).fadeIn();
-		}
 		var html = $('#roscoPDefinition-' + instance).html(),
-			latex = /(?:\\\(|\\\[|\\begin\{.*?})/.test(html);
+			latex = /(?:\$|\\\(|\\\[|\\begin\{.*?})/.test(html);
 		if (latex) {
 			$eXeRosco.updateLatex('roscoPDefinition-' + instance)
 		}
@@ -1007,7 +969,6 @@ var $eXeRosco = {
 		$('#roscoBtnReply-' + instance).prop('disabled', true);
 		$('#roscoBtnMoveOn-' + instance).prop('disabled', true);
 		$('#roscoEdReply-' + instance).prop('disabled', true);
-
 		word = mOptions.caseSensitive ? word : word.toUpperCase();
 		answord = mOptions.caseSensitive ? answord : answord.toUpperCase();
 		var mFontColor = $eXeRosco.colors.white,
@@ -1041,64 +1002,6 @@ var $eXeRosco = {
 			}
 		}
 		letter = '#letterR' + letter + '-' + instance;
-		$(letter).css({
-			'background-color': mBackColor,
-			'color': mFontColor
-		});
-		$eXeRosco.drawRosco(instance);
-		message = mOptions.showSolution ? message : msgs.msgNewWord;
-		setTimeout(function () {
-			$eXeRosco.newWord(instance)
-		}, timeShowSolution);
-		$eXeRosco.drawMessage(Hit, word, clue, instance);
-	},
-
-	answerQuetionBoard: function (value, instance) {
-		var mOptions = $eXeRosco.options[instance],
-			msgs = mOptions.msgs;
-		if (mOptions.gameActived == false) {
-			return;
-		}
-		mOptions.gameActived = false;
-		$('#roscoBtnReply-' + instance).prop('disabled', true);
-		$('#roscoBtnMoveOn-' + instance).prop('disabled', true);
-		$('#roscoEdReply-' + instance).prop('disabled', true);
-		var message = "",
-			Hit = true,
-			word = $.trim(mOptions.wordsGame[mOptions.activeWord].word);
-		word = mOptions.caseSensitive ? word : word.toUpperCase();
-		var mFontColor = $eXeRosco.colors.white,
-			mBackColor = $eXeRosco.colors.blue;
-		if (value) {
-			mOptions.hits++
-			mOptions.wordsGame[mOptions.activeWord].state = 2;
-			Hit = true;
-			mFontColor = $eXeRosco.colors.white;
-			mBackColor = $eXeRosco.colors.green
-		} else {
-			mOptions.wordsGame[mOptions.activeWord].state = 3;
-			mOptions.errors++;
-			Hit = false;
-			mFontColor = $eXeRosco.colors.white;
-			mBackColor = $eXeRosco.colors.red;
-		}
-		var percentageHits = (mOptions.hits / mOptions.validWords) * 100;
-		mOptions.answeredWords++;
-		$('#roscotPHits-' + instance).text(mOptions.hits);
-		$('#roscotPErrors-' + instance).text(mOptions.errors);
-		var timeShowSolution = mOptions.showSolution ? mOptions.timeShowSolution * 1000 : 1000;
-		var clue = false;
-		if (mOptions.itinerary.showClue && percentageHits >= mOptions.itinerary.percentageClue) {
-			if (!mOptions.obtainedClue) {
-				mOptions.obtainedClue = true;
-				timeShowSolution = 4000;
-				clue = true;
-				$('#roscoPShowClue-' + instance).show();
-				$('#roscoPShowClue-' + instance).text(mOptions.msgs.msgInformation + ': ' + mOptions.itinerary.clueGame);
-			}
-		}
-		var letter = mOptions.letters[mOptions.activeWord],
-			letter = '#letterR' + letter + '-' + instance;
 		$(letter).css({
 			'background-color': mBackColor,
 			'color': mFontColor
@@ -1210,32 +1113,60 @@ var $eXeRosco = {
 	},
 	loadMathJax: function () {
 		if (!window.MathJax) {
-			window.MathJax = $exe.math.engineConfig;
+			window.MathJax = {
+				loader: {
+					load: ['[tex]/color', '[tex]/mathtools',
+						'[tex]/ams', '[tex]/mhchem',
+						'[tex]/cancel', '[tex]/enclose',
+						'[tex]/physics', '[tex]/textmacros'
+					]
+				},
+				tex: {
+					inlineMath: [
+						['$', '$'],
+						["\\(", "\\)"]
+					],
+
+					displayMath: [
+						['$$', '$$'],
+						["\\[", "\\]"]
+					],
+					processEscapes: true,
+					tags: 'ams',
+					packages: {
+						'[+]': ['color', 'mathtools', 'ams', 'mhchem', 'cancel', 'enclose', 'physics', 'textmacros']
+					},
+					physics: {
+						italicdiff: false,
+						arrowdel: false
+					}
+				},
+			};
 		}
 		var script = document.createElement('script');
-		script.src = $exe.math.engine;
+		script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
 		script.async = true;
 		document.head.appendChild(script);
 	},
 	updateLatex: function (mnodo) {
-		setTimeout(function () {
-			if (typeof (MathJax) != "undefined") {
-				try {
-					if (MathJax.Hub && typeof MathJax.Hub.Queue == "function") {
-						MathJax.Hub.Queue(["Typeset", MathJax.Hub, '#' + mnodo]);
-					} else if (typeof MathJax.typeset == "function") {
-						var nodo = document.getElementById(mnodo);
-						MathJax.typesetClear([nodo]);
-						MathJax.typeset([nodo]);
-					}
-				} catch (error) {
-					console.log('Error al refrescar cuestiones')
-				}
+        setTimeout(function () {
+            if (typeof (MathJax) != "undefined") {
+                try {
+                    if (MathJax.Hub && typeof MathJax.Hub.Queue == "function") {
+                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, '#' + mnodo]);
+                    } else if (typeof MathJax.typeset == "function") {
+                        var nodo = document.getElementById(mnodo);
+                        MathJax.typesetClear([nodo]);
+                        MathJax.typeset([nodo]);
+                    }
+                } catch (error) {
+                    console.log('Error al refrescar cuestiones')
+                }
 
-			}
+            }
 
-		}, 100);
-	},
+        }, 100);
+    },
 	checkWord: function (word, answord) {
 
 		var sWord = $.trim(word).replace(/\s+/g, " ").replace(/\.$/, "").replace(/\,$/, "").replace(/\;$/, ""),
@@ -1486,38 +1417,14 @@ var $eXeRosco = {
 		}
 		return sp;
 	},
-	getURLAudioMediaTeca: function (url) {
-		if (url) {
-			var matc = url.indexOf("https://mediateca.educa.madrid.org/audio/") != -1;
-			var matc1 = url.indexOf("https://mediateca.educa.madrid.org/video/") != -1;
-
-			if (matc) {
-				var id = url.split("https://mediateca.educa.madrid.org/audio/")[1].split("?")[0];
-				id = 'https://mediateca.educa.madrid.org/streaming.php?id=' + id;
-				return id;
-			}
-			if (matc1) {
-				var id = url.split("https://mediateca.educa.madrid.org/video/")[1].split("?")[0];
-				id = 'https://mediateca.educa.madrid.org/streaming.php?id=' + id;
-				return id;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	},
 	extractURLGD: function (urlmedia) {
 		var sUrl = urlmedia;
 		if (typeof urlmedia != "undefined" && urlmedia.length > 0 && urlmedia.toLowerCase().indexOf("https://drive.google.com") == 0 && urlmedia.toLowerCase().indexOf("sharing") != -1) {
 			sUrl = sUrl.replace(/https:\/\/drive\.google\.com\/file\/d\/(.*?)\/.*?\?usp=sharing/g, "https://docs.google.com/uc?export=open&id=$1");
-		} else if (typeof urlmedia != "undefined" && urlmedia.length > 10 && $eXeRosco.getURLAudioMediaTeca(urlmedia)) {
-			sUrl = $eXeRosco.getURLAudioMediaTeca(urlmedia);
 		}
 		return sUrl;
 	}
 }
-
 $(function () {
 	$eXeRosco.init();
 });
